@@ -6,11 +6,9 @@
 
 int main()
 {
-    std::cout << "Hello World!\n";
-	std::cout << "World" << std::endl;
-	std::cout << "World" << std::endl;
-	std::cout << "world fuck" << std::endl;
+	std::cout << "GameStart!!" << std::endl;
 
+	return 0;
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴
