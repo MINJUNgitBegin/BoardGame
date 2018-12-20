@@ -3,9 +3,12 @@
 
 #include "pch.h"
 #include "Board.h"
+#include "Cell.h"
 
 int main()
 {
-	Board board;
-	board.printBoard();
+	Cell cell;
+	cell.print();
+
+	return 0;
 }
