@@ -48,6 +48,11 @@ int Person::ReturnNumber() const
 	return this->Number;
 }
 
+int Person::ReturnMoveValue()
+{
+	return this->MoveValue;
+}
+
 void Person::ChangeAOG()
 {
 	!this->LocatedAOG;

@@ -6,6 +6,7 @@ class Board
 {
 private:
 	Cell (*cells)[5];
+	Cell* FindCell(int CellNum);
 public:
 	Board();
 	void Print();
