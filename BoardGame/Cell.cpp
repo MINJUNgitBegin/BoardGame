@@ -1,42 +1,32 @@
 #include "pch.h"
 #include "Cell.h"
-#include <iostream>
 
-
-Cell::Cell()
+Cell::Cell(Color color)
 {
-	cell[0] = '[';
-	for(int i = 1; i < 4; ++i)
-		cell[i] = ' ';
-	cell[4] = ']';
-
-	Horse[0] = '@';
-	Horse[1] = '#';
-	Horse[2] = '$';
+	this->color = color;
+	cell[0] = ' ';
+	cell[1] = ' ';
 }
 
-void Cell::print()
+void Cell::SetColor(Color color)
 {
-	for(int i = 0; i < 5; ++i)
-	{
-		std::cout << cell[i];
-	}
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color | (color << 4));
 }
 
-void Cell::clean()
+void Cell::ReturnColor()
 {
-	cell[0] = '[';
-	for(int i = 1; i < 4; ++i)
-		cell[i] = ' ';
-	cell[4] = ']';	
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE | (BLACK << 4));
 }
 
-void Cell::DrawingPlayer(int PlayerNumber)
+void Cell::Print()
 {
-	cell[PlayerNumber] = Horse[PlayerNumber -1 ];
+	SetColor(color);
+	std::cout << cell[0];
+	std::cout << cell[1];
+	ReturnColor();
 }
 
-const int Cell::ReturnAttribute()
+void Cell::ChangeColor(Color color)
 {
-	return Attribute;
+	this->color = color;
 }

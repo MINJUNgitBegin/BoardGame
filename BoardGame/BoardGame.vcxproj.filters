@@ -18,10 +18,10 @@
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Board.h">
+    <ClInclude Include="Cell.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Cell.h">
+    <ClInclude Include="Board.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -33,6 +33,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Cell.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
