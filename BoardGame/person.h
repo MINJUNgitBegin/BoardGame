@@ -11,7 +11,6 @@ protected:
 	int RestCounterInAOG;
 	int Number;
 	bool LocatedAOG;
-	int PlayerTurn;
 	virtual void Ability() = 0;
 	virtual void PrintCharacterInfo() = 0;
 public:

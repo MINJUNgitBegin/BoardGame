@@ -32,8 +32,6 @@ void Person::RollingDice()
 		std::cout << "ÁÖ»çÀ§ ´«±Ý : " << this->MoveValue << std::endl;
 		this->Ability();
 	}
-
-	PlayerTurn++;
 }
 
 Cell* Person::ReturnLocatedCell()
