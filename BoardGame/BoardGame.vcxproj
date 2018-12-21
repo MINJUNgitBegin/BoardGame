@@ -153,17 +153,25 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Cell.h" />
+    <ClInclude Include="fatman.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="person.h" />
+    <ClInclude Include="slave.h" />
+    <ClInclude Include="smoker.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoardGame.cpp" />
     <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="fatman.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="person.cpp" />
+    <ClCompile Include="slave.cpp" />
+    <ClCompile Include="smoker.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
