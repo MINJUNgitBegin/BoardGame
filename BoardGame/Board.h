@@ -6,7 +6,8 @@ class Board
 private:
 	int (*cell)[5];
 public:
-	void print(Cell* cell);
+	void Print();
+	void MovePlayer(Person* Player);
 	
 };
 

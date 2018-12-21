@@ -9,7 +9,7 @@ public:
 	Cell();
 	void print();
 	void clean();
-	void DrawingPlayer(int PlayNumber);
+	void DrawingPlayer(int PlayerNumber);
 	const int ReturnAttribute();
 };
 
