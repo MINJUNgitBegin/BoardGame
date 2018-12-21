@@ -1,4 +1,6 @@
-#pragma once
+#include"Person.h"
+
+
 class Event
 {protected:
 	void BeDraggedAOG(Person* p);
