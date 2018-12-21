@@ -1,6 +1,8 @@
 #pragma once
 #include <cstdlib>
 #include <iostream>
+#include "Cell.h"
+
 class Person
 {
 protected:

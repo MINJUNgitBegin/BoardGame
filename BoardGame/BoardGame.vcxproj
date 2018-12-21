@@ -157,6 +157,7 @@
     <ClInclude Include="Person.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
     <ClCompile Include="BoardGame.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="pch.cpp">

@@ -1,13 +1,14 @@
 #pragma once
 #include "Cell.h"
+#include "Person.h"
 
 class Board
 {
 private:
-	int (*cell)[5];
+	Cell (*cells)[5];
 public:
+	Board();
 	void Print();
 	void MovePlayer(Person* Player);
-	
 };
 
