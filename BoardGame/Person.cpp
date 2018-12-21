@@ -47,3 +47,9 @@ int Person::ReturnNumber() const
 {
 	return this->Number;
 }
+
+void Person::ChangeAOG()
+{
+	!this->LocatedAOG;
+	this->RestCounterInAOG = 1;
+}

@@ -17,5 +17,6 @@ public:
 	Cell* ReturnLocatedCell();
 	Cell* ReturnLocatedCell() const;
 	int ReturnNumber() const;
+	void ChangeAOG();
 };
 
