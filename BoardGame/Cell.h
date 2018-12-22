@@ -13,13 +13,21 @@ typedef unsigned short Color;
 
 class Cell
 {
+	friend class Board;
 private:
 	char cell[2];
 	Color color;
+	Color Origin;
+	int Attribute;
+	int LocationNumber;
+
 	void SetColor(Color color);
-	void ReturnColor();
+	void SetOriginColor();
+	void ChangeOriginColor(Color color);
+	void SetConsolColor();
+
 public:
-	Cell(Color color = GRAY);
+	Cell(Color color = GRAY, Color origin = GRAY);
 	void Print();
 	void ChangeColor(Color color);
 };
