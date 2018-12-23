@@ -4,7 +4,8 @@
 
 #define BLACK 0
 #define GRAY 8
-#define BULE 9
+#define BLUE 9
+#define GREEN 10
 #define RED 12
 #define YELLOW 14
 #define WHITE 15
@@ -24,11 +25,13 @@ private:
 	void SetColor(Color color);
 	void SetOriginColor();
 	void ChangeOriginColor(Color color);
-	void SetConsolColor();
-
-public:
+	void SetConsoleColor();
 	Cell(Color color = GRAY, Color origin = GRAY);
 	void Print();
 	void ChangeColor(Color color);
+	void SetAttribute(int attribute);
+	int GetAttribute() const;
+
+public:
 };
 

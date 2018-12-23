@@ -4,7 +4,7 @@
 Cell::Cell(Color color, Color origin)
 {
 	this->color = color;
-	this->Origin = Origin;
+	this->Origin = origin;
 	cell[0] = ' ';
 	cell[1] = ' ';
 }
@@ -21,10 +21,10 @@ void Cell::SetOriginColor()
 
 void Cell::ChangeOriginColor(Color color)
 {
-	this->Origin = color;
+	Origin = color;
 }
 
-void Cell::SetConsolColor()
+void Cell::SetConsoleColor()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE | (BLACK << 4));
 }
@@ -34,10 +34,20 @@ void Cell::Print()
 	SetColor(color);
 	std::cout << cell[0];
 	std::cout << cell[1];
-	SetConsolColor();
+	SetConsoleColor();
 }
 
 void Cell::ChangeColor(Color color)
 {
 	this->color = color;
+}
+
+void Cell::SetAttribute(int attribute)
+{
+	Attribute = attribute;
+}
+
+int Cell::GetAttribute() const
+{
+	return Attribute;
 }

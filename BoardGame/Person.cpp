@@ -1,60 +1,67 @@
 #include "pch.h"
 #include "Person.h"
 
-Person::Person(int Number)
+Person::Person(int number)
 {
-	this->MoveValue = 0;
-	this->LocatedCell = NULL;
-	this->RestCounterInAOG = 0;
-	this->LocatedAOG = false;
-	this->Number = Number;
+	MoveValue = 0;
+	LocatedCell = nullptr;
+	RestCounterInAOG = 0;
+	LocatedAOG = false;
+	Number = number;
 }
 
 void Person::RollingDice()
 {
 	if (LocatedAOG)
 	{
-		this->MoveValue = 0;
-		--this->RestCounterInAOG;
+		MoveValue = 0;
+		--RestCounterInAOG;
 		system("cls");
 		std::cout << "아오지 1회 휴식" << std::endl;
 	}
 
 	else
 	{
-		system("cls");
-		std::cout << this->Number + "플레이어의 차례입니다 주사위를 굴리세요" << std::endl;
-		std::cout << "Press Enter" << std::endl;
+		std::cout << std::endl << GetNumber() + 1 << " 플레이어의 차례입니다 주사위를 굴리세요" << std::endl;
+		std::cout << "\n\tPress Enter" << std::endl;
 		getchar();
-		this->MoveValue = rand() % 6 + 1;
-		system("cls");
-		std::cout << "주사위 눈금 : " << this->MoveValue << std::endl;
-		this->Ability();
+		MoveValue = rand() % 6 + 1;
+		Ability();
+		std::cout << "주사위 눈금 : " << MoveValue << std::endl;
 	}
 }
 
-Cell* Person::ReturnLocatedCell()
+void Person::SetLocatedCell(Cell *cell)
 {
-	return this->LocatedCell;
+	LocatedCell = cell;
 }
 
-Cell* Person::ReturnLocatedCell() const
+Cell* Person::GetLocatedCell()
 {
-	return this->LocatedCell;
+	return LocatedCell;
 }
 
-int Person::ReturnNumber() const
+Cell* Person::GetLocatedCell() const
 {
-	return this->Number;
+	return LocatedCell;
 }
 
-int Person::ReturnMoveValue()
+int Person::GetNumber() const
 {
-	return this->MoveValue;
+	return Number;
 }
 
-void Person::ChangeAOG()
+int Person::GetMoveValue() const
 {
-	!this->LocatedAOG;
-	this->RestCounterInAOG = 1;
+	return MoveValue;
+}
+
+int Person::GetLocationNumber() const
+{
+	return LocationNum;
+}
+
+void Person::SetLocationNumber(int LocationNumber)
+{
+	LocationNum = LocationNumber;
 }

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Board.h"
+#include "Person.h"
 
 void Board::SetLocations()
 {
@@ -39,7 +40,41 @@ void Board::SetLocations()
 	}
 	for(int i = 0; i < 25; ++i)
 		for (int j = 0; j < 4; ++j)
+		{
 			Locations[i][j]->LocationNumber = i;
+			Locations[i][j]->SetAttribute(0);
+		}
+}
+
+void Board::PutPlayer(const Person *Player, int Lnum)
+{
+	int Pnum = Player->GetNumber();
+	Locations[Lnum][Pnum]->ChangeColor(PlayerColors[Pnum]);
+}
+
+void Board::CleanUpFootPrint(const Person *Player, int Lnum)
+{
+	int Pnum = Player->GetNumber();
+	Locations[Lnum][Pnum]->SetOriginColor();
+}
+
+void Board::SetEventLocations(int LocationNumber, int attribute)
+{
+	switch(attribute)
+	{
+		Color color;
+	case 1:
+		color = BLACK;
+		for (int i = 0; i < 4; ++i)
+		{
+			Locations[LocationNumber][i]->ChangeColor(color);
+			Locations[LocationNumber][i]->ChangeOriginColor(color);
+			Locations[LocationNumber][i]->SetAttribute(1);
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 Board::Board()
@@ -58,11 +93,20 @@ Board::Board()
 		}
 
 	SetLocations();
+	SetEventLocations(3, 1);
+	SetEventLocations(10, 1);
+	SetEventLocations(17, 1);
+	SetEventLocations(23, 1);
+
+	PlayerColors[0] = RED;
+	PlayerColors[1] = BLUE;
+	PlayerColors[2] = YELLOW;
+	PlayerColors[3] = GREEN;
 }
 
 Board::~Board()
 {
-	delete[] cells;
+	delete [] cells;
 }
 
 void Board::Print() const
@@ -76,12 +120,35 @@ void Board::Print() const
 	}
 }
 
-void Board::OnPlayer(int LocationNumber, int PlayerNumber)
+void Board::PutPlayerFirstLocation(Person* Player)
 {
-	Locations[LocationNumber][PlayerNumber]->ChangeColor(RED);
+	const int Pnum = Player->GetNumber();
+	Player->SetLocatedCell(Locations[0][Pnum]);
+	PutPlayer(Player, 0);
 }
 
-void Board::CleanUpFootPrint(int LocationNumber, int PlayerNumber)
+void Board::MovePlayer(Person* Player)
 {
-	Locations[LocationNumber][PlayerNumber]->SetOriginColor();
+	int MoveVal = Player->GetMoveValue();
+	int Lnum = Player->GetLocationNumber();
+	int Pnum = Player->GetNumber();
+	int NextLocation = Lnum + MoveVal;
+
+	CleanUpFootPrint(Player, Lnum);
+	Player->SetLocatedCell(Locations[NextLocation][Pnum]);
+	Player->SetLocationNumber(NextLocation);
+
+	for(int i = 0; i < MoveVal; ++i)
+	{
+		if (Lnum + i >= 24)
+			break;
+		PutPlayer(Player, Lnum + (i + 1));
+		Print();
+		if(i == 0 && Lnum == 0)
+			CleanUpFootPrint(Player, 0);
+		CleanUpFootPrint(Player, Lnum + (i + 1));
+		Sleep(500);
+	}
+
+	PutPlayer(Player, NextLocation);
 }
