@@ -47,7 +47,22 @@ void Cell::SetAttribute(int attribute)
 	Attribute = attribute;
 }
 
+void Cell::SetLadderGoal(Cell* goal)
+{
+	LadderGoal = goal;
+}
+
 int Cell::GetAttribute() const
 {
 	return Attribute;
+}
+
+int Cell::GetLocationNumber() const
+{
+	return LocationNumber;
+}
+
+Cell* Cell::GetLadderGoal()
+{
+	return LadderGoal;
 }

@@ -21,6 +21,7 @@ private:
 	Color Origin;
 	int Attribute;
 	int LocationNumber;
+	Cell *LadderGoal;
 
 	void SetColor(Color color);
 	void SetOriginColor();
@@ -30,8 +31,11 @@ private:
 	void Print();
 	void ChangeColor(Color color);
 	void SetAttribute(int attribute);
-	int GetAttribute() const;
+	void SetLadderGoal(Cell *goal);
 
 public:
+	int GetAttribute() const;
+	int GetLocationNumber() const;
+	Cell* GetLadderGoal();
 };
 

@@ -60,21 +60,35 @@ void Board::CleanUpFootPrint(const Person *Player, int Lnum)
 
 void Board::SetEventLocations(int LocationNumber, int attribute)
 {
+	Color color;
+
 	switch(attribute)
 	{
-		Color color;
 	case 1:
 		color = BLACK;
-		for (int i = 0; i < 4; ++i)
-		{
-			Locations[LocationNumber][i]->ChangeColor(color);
-			Locations[LocationNumber][i]->ChangeOriginColor(color);
-			Locations[LocationNumber][i]->SetAttribute(1);
-		}
+		break;
+	case 2:
+		color = WHITE;
+		break;
+	case 3:
+		color = WHITE;
 		break;
 	default:
 		break;
 	}
+
+	for (int i = 0; i < 4; ++i)
+	{
+		Locations[LocationNumber][i]->ChangeColor(color);
+		Locations[LocationNumber][i]->ChangeOriginColor(color);
+		Locations[LocationNumber][i]->SetAttribute(attribute);
+	}
+}
+
+void Board::SetLadderGoal(int start, int goal)
+{
+	for(int i = 0; i < 4; ++i)
+		Locations[start][i]->SetLadderGoal(Locations[goal][i]);
 }
 
 Board::Board()
@@ -94,9 +108,18 @@ Board::Board()
 
 	SetLocations();
 	SetEventLocations(3, 1);
+	SetEventLocations(4, 2);
+	SetLadderGoal(4, 14);
 	SetEventLocations(10, 1);
+	SetEventLocations(12, 2);
+	SetLadderGoal(12, 8);
+	SetEventLocations(16, 2);
+	SetLadderGoal(16, 21);
 	SetEventLocations(17, 1);
+	SetEventLocations(22, 2);
+	SetLadderGoal(22, 12);
 	SetEventLocations(23, 1);
+	SetEventLocations(24, 3);
 
 	PlayerColors[0] = RED;
 	PlayerColors[1] = BLUE;
@@ -132,7 +155,11 @@ void Board::MovePlayer(Person* Player)
 	int MoveVal = Player->GetMoveValue();
 	int Lnum = Player->GetLocationNumber();
 	int Pnum = Player->GetNumber();
-	int NextLocation = Lnum + MoveVal;
+	int NextLocation;
+	if (Lnum + MoveVal >= 24)
+		NextLocation = 24;
+	else
+		NextLocation = Lnum + MoveVal;
 
 	CleanUpFootPrint(Player, Lnum);
 	Player->SetLocatedCell(Locations[NextLocation][Pnum]);
@@ -151,4 +178,22 @@ void Board::MovePlayer(Person* Player)
 	}
 
 	PutPlayer(Player, NextLocation);
+}
+
+void Board::LadderAction(Person* Player)
+{
+	Cell *PlayerLocation = Player->GetLocatedCell();
+	Cell *LadderGoal = PlayerLocation->GetLadderGoal();
+	int Lnum = Player->GetLocationNumber();
+	int Pnum = Player->GetNumber();
+	int Gnum = LadderGoal->GetLocationNumber();
+
+	std::cout << Pnum + 1 << "플레이어가 사다리를 사용합니다." << std::endl;
+	getchar();
+	std::cout << "Press Enter" << std::endl;
+	CleanUpFootPrint(Player, Lnum);
+	PutPlayer(Player, Gnum);
+	Player->SetLocatedCell(LadderGoal);
+	Player->SetLocationNumber(Gnum);
+	Print();
 }

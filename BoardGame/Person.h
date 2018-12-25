@@ -16,12 +16,14 @@ protected:
 	virtual void PrintCharacterInfo() = 0;
 public:
 	Person(int number);
-	void RollingDice();
+	virtual void RollingDice();
 	void SetLocatedCell(Cell *cell);
 	Cell* GetLocatedCell();
-	Cell* GetLocatedCell() const;
 	int GetNumber() const;
 	int GetMoveValue() const;
 	int GetLocationNumber() const;
 	void SetLocationNumber(int LocationNumber);
+	bool GetLocatedAOG() const;
+	virtual void SetLocatedAOG();
+	int GetRestCount();
 };

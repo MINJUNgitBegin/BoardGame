@@ -12,12 +12,13 @@ Person::Person(int number)
 
 void Person::RollingDice()
 {
-	if (LocatedAOG)
+	if (LocatedAOG && RestCounterInAOG != 0)
 	{
 		MoveValue = 0;
 		--RestCounterInAOG;
-		system("cls");
-		std::cout << "아오지 1회 휴식" << std::endl;
+		std::cout << GetNumber() + 1 << "플레이어가 아오지에 끌려가 노동중입니다." << std::endl;
+		std::cout << "Press Enter" << std::endl;
+		getchar();
 	}
 
 	else
@@ -26,8 +27,8 @@ void Person::RollingDice()
 		std::cout << "\n\tPress Enter" << std::endl;
 		getchar();
 		MoveValue = rand() % 6 + 1;
-		Ability();
 		std::cout << "주사위 눈금 : " << MoveValue << std::endl;
+		Ability();
 	}
 }
 
@@ -37,11 +38,6 @@ void Person::SetLocatedCell(Cell *cell)
 }
 
 Cell* Person::GetLocatedCell()
-{
-	return LocatedCell;
-}
-
-Cell* Person::GetLocatedCell() const
 {
 	return LocatedCell;
 }
@@ -64,4 +60,23 @@ int Person::GetLocationNumber() const
 void Person::SetLocationNumber(int LocationNumber)
 {
 	LocationNum = LocationNumber;
+}
+
+bool Person::GetLocatedAOG() const
+{
+	return LocatedAOG;
+}
+
+void Person::SetLocatedAOG()
+{
+	if(LocatedAOG == false)
+	{
+		RestCounterInAOG = 1;
+	}
+	LocatedAOG = !LocatedAOG;
+}
+
+int Person::GetRestCount()
+{
+	return RestCounterInAOG;
 }

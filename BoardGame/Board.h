@@ -12,11 +12,13 @@ private:
 	void PutPlayer(const Person *Player, int Lnum);
 	void CleanUpFootPrint(const Person *Player, int Lnum);
 	void SetEventLocations(int LocationNumber, int attribute);
+	void SetLadderGoal(int start, int goal);
 public:
 	Board();
 	~Board();
 	void Print() const;
 	void PutPlayerFirstLocation(Person *Player);
 	void MovePlayer(Person *Player);
+	void LadderAction(Person *Player);
 };
 
