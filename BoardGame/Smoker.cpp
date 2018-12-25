@@ -13,13 +13,18 @@ void Smoker::Ability()
 
 void Smoker::PrintCharacterInfo()
 {
-	std::cout << "Test!" << std::endl;
+	system("cls");
+	std::cout << GetNumber() + 1 << "플레이어는 니코틴 중독자입니다.\n" << std::endl;
+	std::cout << "니코틴 중독자는 주사위를 3번째 굴릴때 담배타임을 가지는 특성이 있습니다.\n" << std::endl;
+	std::cout << "Press Enter" << std::endl;
+	getchar();
 }
 
 Smoker::Smoker(int num)
 	:Person(num)
 {
 	SmokingCount = 0;
+	PrintCharacterInfo();
 }
 
 void Smoker::RollingDice()

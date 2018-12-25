@@ -6,16 +6,19 @@
 #include "FatMan.h"
 #include "Smoker.h"
 #include "Slave.h"
+#include "Game.h"
 #include <ctime>
 
 int main()
 {
+	Game::GameInfo();
+
 	srand(time(NULL));
 	Board board;
 	Person *Player[4];
 	for(int i = 0; i < 4; ++i)
 	{
-		Player[i] = new Slave(i);
+		Player[i] = Game::RandomSelect(i);
 		board.PutPlayerFirstLocation(Player[i]);
 	}
 	board.Print();
