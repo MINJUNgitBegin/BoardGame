@@ -25,7 +25,7 @@ int main()
 	Event even(&board);
 
 	int count = 4;
-	while(1)
+	while(true)
 	{
 		int PlayerNum = count % 4;
 		board.Print();

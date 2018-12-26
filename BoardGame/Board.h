@@ -9,9 +9,10 @@ private:
 	Cell *Locations[25][4];
 	Color PlayerColors[4];
 	void SetLocations();
-	void PutPlayer(const Person *Player, int Lnum);
-	void CleanUpFootPrint(const Person *Player, int Lnum);
-	void SetEventLocations(int LocationNumber, int attribute);
+	void PutPlayer(const Person *Player, int LocationNumber);
+	void CleanUpFootPrint(const Person *Player, int LocationNumber);
+	void SetEventLocations();
+	void SetEventLocation(int LocationNumber, int attribute);
 	void SetLadderGoal(int start, int goal);
 public:
 	Board();

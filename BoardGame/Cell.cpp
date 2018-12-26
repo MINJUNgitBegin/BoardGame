@@ -9,9 +9,14 @@ Cell::Cell(Color color, Color origin)
 	cell[1] = ' ';
 }
 
-void Cell::SetColor(Color color)
+void Cell::SetPrintingColor(Color color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color | (color << 4));
+}
+
+void Cell::ChangeColor(Color color)
+{
+	this->color = color;
 }
 
 void Cell::SetOriginColor()
@@ -31,15 +36,10 @@ void Cell::SetConsoleColor()
 
 void Cell::Print()
 {
-	SetColor(color);
+	SetPrintingColor(color);
 	std::cout << cell[0];
 	std::cout << cell[1];
 	SetConsoleColor();
-}
-
-void Cell::ChangeColor(Color color)
-{
-	this->color = color;
 }
 
 void Cell::SetAttribute(int attribute)
@@ -65,4 +65,9 @@ int Cell::GetLocationNumber() const
 Cell* Cell::GetLadderGoal()
 {
 	return LadderGoal;
+}
+
+void Cell::SetLocationNumber(int Number)
+{
+	LocationNumber = Number;
 }

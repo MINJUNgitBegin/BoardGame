@@ -6,7 +6,7 @@
 class Person
 {
 protected:
-	int MoveValue;
+	int MoveCount;
 	Cell *LocatedCell;
 	int LocationNum;
 	int RestCounterInAOG;

@@ -3,19 +3,19 @@
 
 void Event::BeDraggedAOG(Person* Player)
 {
-	bool IsInAOG = Player->GetLocatedAOG();
-	int RestCount = Player->GetRestCount();
-	int Pnum = Player->GetNumber();
+	const bool IsInAOG = Player->GetLocatedAOG();
+	const int RestCount = Player->GetRestCount();
+	const int PlayerNumber = Player->GetNumber();
 	if(IsInAOG && RestCount == 0)
 	{
-		std::cout << Pnum + 1 << " 플레이어가 아오지에서 벗어났습니다." << std::endl;
+		std::cout << PlayerNumber + 1 << " 플레이어가 아오지에서 벗어났습니다." << std::endl;
 		Player->SetLocatedAOG();
 		getchar();
 		std::cout << "Press Enter" << std::endl;
 	}
 	else if(RestCount == 0)
 	{
-		std::cout << Pnum + 1 << " 플레이어가 잡혀 아오지로 끌려갑니다." << std::endl;
+		std::cout << PlayerNumber + 1 << " 플레이어가 잡혀 아오지로 끌려갑니다." << std::endl;
 		Player->SetLocatedAOG();
 		getchar();
 		std::cout << "Press Enter" << std::endl;
@@ -34,9 +34,9 @@ Event::Event(Board* board)
 
 void Event::GenerateEvent(Person* Player)
 {
-	int AttriNum = Player->GetLocatedCell()->GetAttribute();
+	const int Attribute = Player->GetLocatedCell()->GetAttribute();
 
-	switch(AttriNum)
+	switch(Attribute)
 	{
 	case 1:
 		BeDraggedAOG(Player);
@@ -52,11 +52,11 @@ void Event::GenerateEvent(Person* Player)
 
 bool Event::IsInGoal(Person* Player)
 {
-	int AttriNum = Player->GetLocatedCell()->GetAttribute();
-	int Pnum = Player->GetNumber();
-	if(AttriNum == 3)
+	const int Attribute = Player->GetLocatedCell()->GetAttribute();
+	const int PlayerNumber = Player->GetNumber();
+	if(Attribute == 3)
 	{
-		std::cout << Pnum + 1 << "플레이어의 승리입니다." << std::endl;
+		std::cout << PlayerNumber + 1 << "플레이어의 승리입니다." << std::endl;
 		return true;
 	}
 

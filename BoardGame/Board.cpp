@@ -15,7 +15,7 @@ void Board::SetLocations()
 			BackIndex -= 3;
 
 		else if (i != 0 && i % 5 == 0)
-			BackIndex = BackIndex;
+			;
 
 		else
 			BackIndex += 3;
@@ -41,39 +41,58 @@ void Board::SetLocations()
 	for(int i = 0; i < 25; ++i)
 		for (int j = 0; j < 4; ++j)
 		{
-			Locations[i][j]->LocationNumber = i;
+			Locations[i][j]->SetLocationNumber(i);
 			Locations[i][j]->SetAttribute(0);
 		}
 }
 
-void Board::PutPlayer(const Person *Player, int Lnum)
+void Board::PutPlayer(const Person *Player, int LocationNumber)
 {
-	int Pnum = Player->GetNumber();
-	Locations[Lnum][Pnum]->ChangeColor(PlayerColors[Pnum]);
+	const int PlayerNumber = Player->GetNumber();
+	Locations[LocationNumber][PlayerNumber]->ChangeColor(PlayerColors[PlayerNumber]);
 }
 
-void Board::CleanUpFootPrint(const Person *Player, int Lnum)
+void Board::CleanUpFootPrint(const Person *Player, int LocationNumber)
 {
-	int Pnum = Player->GetNumber();
-	Locations[Lnum][Pnum]->SetOriginColor();
+	const int PlayerNumber = Player->GetNumber();
+	Locations[LocationNumber][PlayerNumber]->SetOriginColor();
 }
 
-void Board::SetEventLocations(int LocationNumber, int attribute)
+void Board::SetEventLocations()
+{
+	SetEventLocation(3, AOG);
+	SetEventLocation(4, LADDER);
+	SetLadderGoal(4, 14);
+	SetEventLocation(10, AOG);
+	SetEventLocation(12, LADDER);
+	SetLadderGoal(12, 8);
+	SetEventLocation(16, LADDER);
+	SetLadderGoal(16, 21);
+	SetEventLocation(17, AOG);
+	SetEventLocation(22, LADDER);
+	SetLadderGoal(22, 12);
+	SetEventLocation(23, AOG);
+	SetEventLocation(24, GOAL);
+}
+
+void Board::SetEventLocation(int LocationNumber, int attribute)
 {
 	Color color;
 
 	switch(attribute)
 	{
-	case 1:
+	case AOG:
 		color = BLACK;
 		break;
-	case 2:
-		color = WHITE;
+	case LADDER:
+		color = PURPLE;
 		break;
-	case 3:
+	case GOAL:
 		color = WHITE;
 		break;
 	default:
+		color = WHITE;
+		attribute = 0;
 		break;
 	}
 
@@ -98,7 +117,8 @@ Board::Board()
 	for(int i = 0; i < 16; ++i)
 		for(int j = 0; j < 16; ++j)
 		{
-			if (i % 3 == 0 || j % 3 == 0);
+			if (i % 3 == 0 || j % 3 == 0)
+				continue;
 			else
 			{
 				cells[i][j].ChangeColor(WHITE);
@@ -107,19 +127,7 @@ Board::Board()
 		}
 
 	SetLocations();
-	SetEventLocations(3, 1);
-	SetEventLocations(4, 2);
-	SetLadderGoal(4, 14);
-	SetEventLocations(10, 1);
-	SetEventLocations(12, 2);
-	SetLadderGoal(12, 8);
-	SetEventLocations(16, 2);
-	SetLadderGoal(16, 21);
-	SetEventLocations(17, 1);
-	SetEventLocations(22, 2);
-	SetLadderGoal(22, 12);
-	SetEventLocations(23, 1);
-	SetEventLocations(24, 3);
+	SetEventLocations();
 
 	PlayerColors[0] = RED;
 	PlayerColors[1] = BLUE;
@@ -145,35 +153,35 @@ void Board::Print() const
 
 void Board::PutPlayerFirstLocation(Person* Player)
 {
-	const int Pnum = Player->GetNumber();
-	Player->SetLocatedCell(Locations[0][Pnum]);
+	const int PlayerNumber = Player->GetNumber();
+	Player->SetLocatedCell(Locations[0][PlayerNumber]);
 	PutPlayer(Player, 0);
 }
 
 void Board::MovePlayer(Person* Player)
 {
-	int MoveVal = Player->GetMoveValue();
-	int Lnum = Player->GetLocationNumber();
-	int Pnum = Player->GetNumber();
+	const int MoveCount = Player->GetMoveValue();
+	const int LocationNumber = Player->GetLocationNumber();
+	const int PlayerNumber = Player->GetNumber();
 	int NextLocation;
-	if (Lnum + MoveVal >= 24)
+	if (LocationNumber + MoveCount >= 24)
 		NextLocation = 24;
 	else
-		NextLocation = Lnum + MoveVal;
+		NextLocation = LocationNumber + MoveCount;
 
-	CleanUpFootPrint(Player, Lnum);
-	Player->SetLocatedCell(Locations[NextLocation][Pnum]);
+	CleanUpFootPrint(Player, LocationNumber);
+	Player->SetLocatedCell(Locations[NextLocation][PlayerNumber]);
 	Player->SetLocationNumber(NextLocation);
 
-	for(int i = 0; i < MoveVal; ++i)
+	for(int i = 0; i < MoveCount; ++i)
 	{
-		if (Lnum + i >= 24)
+		if (LocationNumber + i >= 24)
 			break;
-		PutPlayer(Player, Lnum + (i + 1));
+		PutPlayer(Player, LocationNumber + (i + 1));
 		Print();
-		if(i == 0 && Lnum == 0)
+		if(i == 0 && LocationNumber == 0)
 			CleanUpFootPrint(Player, 0);
-		CleanUpFootPrint(Player, Lnum + (i + 1));
+		CleanUpFootPrint(Player, LocationNumber + (i + 1));
 		Sleep(500);
 	}
 
@@ -184,16 +192,16 @@ void Board::LadderAction(Person* Player)
 {
 	Cell *PlayerLocation = Player->GetLocatedCell();
 	Cell *LadderGoal = PlayerLocation->GetLadderGoal();
-	int Lnum = Player->GetLocationNumber();
-	int Pnum = Player->GetNumber();
-	int Gnum = LadderGoal->GetLocationNumber();
+	const int LocationNumber = Player->GetLocationNumber();
+	const int PlayerNumber = Player->GetNumber();
+	const int GoalLocation = LadderGoal->GetLocationNumber();
 
-	std::cout << Pnum + 1 << "플레이어가 사다리를 사용합니다." << std::endl;
-	getchar();
+	std::cout << PlayerNumber + 1 << "플레이어가 사다리를 사용합니다." << std::endl;
 	std::cout << "Press Enter" << std::endl;
-	CleanUpFootPrint(Player, Lnum);
-	PutPlayer(Player, Gnum);
+	getchar();
+	CleanUpFootPrint(Player, LocationNumber);
+	PutPlayer(Player, GoalLocation);
 	Player->SetLocatedCell(LadderGoal);
-	Player->SetLocationNumber(Gnum);
+	Player->SetLocationNumber(GoalLocation);
 	Print();
 }

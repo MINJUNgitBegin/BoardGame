@@ -3,18 +3,19 @@
 
 Person::Person(int number)
 {
-	MoveValue = 0;
+	MoveCount = 0;
 	LocatedCell = nullptr;
+	LocationNum = 0;
 	RestCounterInAOG = 0;
-	LocatedAOG = false;
 	Number = number;
+	LocatedAOG = false;
 }
 
 void Person::RollingDice()
 {
 	if (LocatedAOG && RestCounterInAOG != 0)
 	{
-		MoveValue = 0;
+		MoveCount = 0;
 		--RestCounterInAOG;
 		std::cout << GetNumber() + 1 << "플레이어가 아오지에 끌려가 노동중입니다." << std::endl;
 		std::cout << "Press Enter" << std::endl;
@@ -26,8 +27,8 @@ void Person::RollingDice()
 		std::cout << std::endl << GetNumber() + 1 << " 플레이어의 차례입니다 주사위를 굴리세요" << std::endl;
 		std::cout << "\n\tPress Enter" << std::endl;
 		getchar();
-		MoveValue = rand() % 6 + 1;
-		std::cout << "주사위 눈금 : " << MoveValue << std::endl;
+		MoveCount = rand() % 6 + 1;
+		std::cout << "주사위 눈금 : " << MoveCount << std::endl;
 		Ability();
 	}
 }
@@ -49,7 +50,7 @@ int Person::GetNumber() const
 
 int Person::GetMoveValue() const
 {
-	return MoveValue;
+	return MoveCount;
 }
 
 int Person::GetLocationNumber() const
