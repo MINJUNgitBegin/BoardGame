@@ -48,7 +48,7 @@ int Person::GetNumber() const
 	return Number;
 }
 
-int Person::GetMoveValue() const
+int Person::GetMoveCount() const
 {
 	return MoveCount;
 }

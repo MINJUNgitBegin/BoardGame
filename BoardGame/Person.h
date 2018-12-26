@@ -20,7 +20,7 @@ public:
 	void SetLocatedCell(Cell *cell);
 	Cell* GetLocatedCell();
 	int GetNumber() const;
-	int GetMoveValue() const;
+	int GetMoveCount() const;
 	int GetLocationNumber() const;
 	void SetLocationNumber(int LocationNumber);
 	bool GetLocatedAOG() const;

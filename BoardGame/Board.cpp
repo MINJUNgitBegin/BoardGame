@@ -160,7 +160,7 @@ void Board::PutPlayerFirstLocation(Person* Player)
 
 void Board::MovePlayer(Person* Player)
 {
-	const int MoveCount = Player->GetMoveValue();
+	const int MoveCount = Player->GetMoveCount();
 	const int LocationNumber = Player->GetLocationNumber();
 	const int PlayerNumber = Player->GetNumber();
 	int NextLocation;
