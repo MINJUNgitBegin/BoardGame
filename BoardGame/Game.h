@@ -8,4 +8,3 @@ public:
 	static void GameInfo();
 	static Person* RandomSelect(int PlayerNumber);
 };
-
